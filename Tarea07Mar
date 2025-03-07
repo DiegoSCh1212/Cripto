@@ -1,0 +1,43 @@
+import random
+
+def generar_sustituciones_homofonicas(alfabeto):
+    """Genera un diccionario de sustituciones homofónicas aleatorias para cada letra."""
+    sustituciones = {}
+    for letra in alfabeto:
+        num_sustituciones = random.randint(3, 7)  # Número aleatorio de sustituciones por letra
+        sustituciones[letra] = [str(random.randint(10, 99)) for _ in range(num_sustituciones)]  # Números de 2 dígitos aleatorios
+    return sustituciones
+
+def cifrar_homofonico(mensaje, sustituciones):
+    """Cifra un mensaje usando sustituciones homofónicas."""
+    mensaje_cifrado = ""
+    for letra in mensaje.upper():
+        if letra in sustituciones:
+            mensaje_cifrado += random.choice(sustituciones[letra]) + " "
+        else:
+            mensaje_cifrado += letra + " "  # Deja los caracteres no alfabéticos sin cambios
+    return mensaje_cifrado.strip()
+
+def descifrar_homofonico(mensaje_cifrado, sustituciones):
+    """Descifra un mensaje cifrado con sustituciones homofónicas."""
+    mensaje_descifrado = ""
+    inverso_sustituciones = {v: k for k, valores in sustituciones.items() for v in valores}  # Invierte el diccionario de sustituciones
+    for codigo in mensaje_cifrado.split():
+        if codigo in inverso_sustituciones:
+            mensaje_descifrado += inverso_sustituciones[codigo]
+        else:
+            mensaje_descifrado += codigo  # Deja los códigos no encontrados sin cambios
+    return mensaje_descifrado
+
+# Ejemplo de uso
+alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+sustituciones = generar_sustituciones_homofonicas(alfabeto)
+
+mensaje_original = "Este es un mensaje secreto"
+mensaje_cifrado = cifrar_homofonico(mensaje_original, sustituciones)
+mensaje_descifrado = descifrar_homofonico(mensaje_cifrado, sustituciones)
+
+print("Mensaje original:", mensaje_original)
+print("Mensaje cifrado:", mensaje_cifrado)
+print("Mensaje descifrado:", mensaje_descifrado)
+print("Sustituciones:", sustituciones)
