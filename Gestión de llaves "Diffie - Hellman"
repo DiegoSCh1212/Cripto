@@ -1,0 +1,49 @@
+import random
+
+# Diccionario homofónico de ejemplo
+homophonic_dict = {
+    'A': [11, 12],
+    'B': [13],
+    'C': [14],
+    'D': [15, 16],
+    'E': [17, 18, 19],
+    'F': [20],
+    'G': [21],
+    'H': [22],
+    'I': [23, 24],
+    'J': [25],
+    'K': [26],
+    'L': [27],
+    'M': [28],
+    'N': [29],
+    'O': [30, 31],
+    'P': [32],
+    'Q': [33],
+    'R': [34],
+    'S': [35, 36],
+    'T': [37],
+    'U': [38, 39],
+    'V': [40],
+    'W': [41],
+    'X': [42],
+    'Y': [43],
+    'Z': [44]
+}
+
+def homophonic_encrypt(text):
+    text = text.upper()
+    encrypted = []
+    for char in text:
+        if char in homophonic_dict:
+            encrypted.append(str(random.choice(homophonic_dict[char])))
+        else:
+            encrypted.append(char)  # conservar espacios o signos
+    return ' '.join(encrypted)
+
+def main():
+    message = input("Ingresa el mensaje a cifrar: ")
+    cipher_text = homophonic_encrypt(message)
+    print("Mensaje cifrado:", cipher_text)
+
+if __name__ == "__main__":
+    main()
